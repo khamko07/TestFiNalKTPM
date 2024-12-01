@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(45deg, #6b7280, #4b5563);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            min-height: 400px;
+        }
+
+        .form {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 
+                20px 20px 40px rgba(0, 0, 0, 0.2),
+                -20px -20px 40px rgba(255, 255, 255, 0.1);
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .login-form {
+            transform: scale(0);
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .register-form {
+            transform: scale(1);
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .show-login .login-form {
+            transform: scale(1);
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .show-login .register-form {
+            transform: scale(0);
+            opacity: 0;
+            z-index: 1;
+        }
+
+        h2 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #3b82f6, #60a5fa);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 
+                5px 5px 10px rgba(0, 0, 0, 0.2),
+                -5px -5px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.2),
+                -8px -8px 16px rgba(255, 255, 255, 0.1);
+        }
+
+        .switch-form {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .password-strength {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 5px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .strength-meter {
+            height: 100%;
+            width: 0;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Register Form -->
+        <div class="form register-form">
+            <h2>Register</h2>
+            <form id="registerForm" novalidate>
+                <div class="input-group">
+                    <input type="text" placeholder="First Name" id="firstName" required>
+                    <div class="error-message" id="firstNameError">Please enter your first name</div>
+                </div>
+                <div class="input-group">
+                    <input type="text" placeholder="Last Name" id="lastName" required>
+                    <div class="error-message" id="lastNameError">Please enter your last name</div>
+                </div>
+                <div class="input-group">
+                    <input type="text" placeholder="Username" id="regUsername" required>
+                    <div class="error-message" id="regUsernameError">Username must be at least 3 characters</div>
+                </div>
+                <div class="input-group">
+                    <input type="email" placeholder="Email" id="email" required>
+                    <div class="error-message" id="emailError">Please enter a valid email address</div>
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Password" id="regPassword" required>
+                    <i class="fas fa-eye password-toggle" onclick="togglePassword('regPassword')"></i>
+                    <div class="password-strength">
+                        <div class="strength-meter" id="strengthMeter"></div>
+                    </div>
+                    <div class="error-message" id="regPasswordError">Password must be at least 8 characters with uppercase, lowercase, and special characters</div>
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Confirm Password" id="confirmPassword" required>
+                    <i class="fas fa-eye password-toggle" onclick="togglePassword('confirmPassword')"></i>
+                    <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
+                </div>
+                <button type="submit" class="btn">Register</button>
+                <button type="button" class="btn switch-form" onclick="switchForm()">Login</button>
+            </form>
+        </div>
+
+        <!-- Login Form -->
+        <div class="form login-form">
+            <h2>Login</h2>
+            <form id="loginForm" novalidate>
+                <div class="input-group">
+                    <input type="text" placeholder="Username" id="loginUsername" required>
+                    <div class="error-message" id="loginUsernameError">Please enter your username</div>
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Password" id="loginPassword" required>
+                    <i class="fas fa-eye password-toggle" onclick="togglePassword('loginPassword')"></i>
+                    <div class="error-message" id="loginPasswordError">Please enter your password</div>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <button type="button" class="btn switch-form" onclick="switchForm()">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const container = document.querySelector('.container');
+        let isLoginForm = false;
+
+        function switchForm() {
+            isLoginForm = !isLoginForm;
+            if (isLoginForm) {
+                container.classList.add('show-login');
+            } else {
+                container.classList.remove('show-login');
+            }
+        }
+
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        function validatePassword(password) {
+            const hasUpperCase = /[A-Z]/.test(password);
+            const hasLowerCase = /[a-z]/.test(password);
+            const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+            const hasMinLength = password.length >= 8;
+
+            let strength = 0;
+            if (hasUpperCase) strength += 25;
+            if (hasLowerCase) strength += 25;
+            if (hasSpecialChar) strength += 25;
+            if (hasMinLength) strength += 25;
+
+            const strengthMeter = document.getElementById('strengthMeter');
+            strengthMeter.style.width = `${strength}%`;
+            
+            if (strength <= 25) {
+                strengthMeter.style.backgroundColor = '#ef4444';
+            } else if (strength <= 50) {
+                strengthMeter.style.backgroundColor = '#f59e0b';
+            } else if (strength <= 75) {
+                strengthMeter.style.backgroundColor = '#10b981';
+            } else {
+                strengthMeter.style.backgroundColor = '#059669';
+            }
+
+            return strength === 100;
+        }
+
+        function showError(inputId, message) {
+            const input = document.getElementById(inputId);
+            const errorElement = document.getElementById(`${inputId}Error`);
+            input.classList.add('shake');
+            errorElement.style.display = 'block';
+            errorElement.textContent = message;
+            
+            setTimeout(() => {
+                input.classList.remove('shake');
+            }, 500);
+        }
+
+        function hideError(inputId) {
+            const errorElement = document.getElementById(`${inputId}Error`);
+            errorElement.style.display = 'none';
+        }
+
+        document.getElementById('regPassword').addEventListener('input', function(e) {
+            validatePassword(e.target.value);
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const username = document.getElementById('regUsername').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!firstName) {
+                showError('firstName', 'Please enter your first name');
+                isValid = false;
+            } else {
+                hideError('firstName');
+            }
+
+            if (!lastName) {
+                showError('lastName', 'Please enter your last name');
+                isValid = false;
+            } else {
+                hideError('lastName');
+            }
+
+            if (!username || username.length < 3) {
+                showError('regUsername', 'Username must be at least 3 characters');
+                isValid = false;
+            } else {
+                hideError('regUsername');
+            }
+
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showError('email', 'Please enter a valid email address');
+                isValid = false;
+            } else {
+                hideError('email');
+            }
+
+            if (!validatePassword(password)) {
+                showError('regPassword', 'Password must be at least 8 characters with uppercase, lowercase, and special characters');
+                isValid = false;
+            } else {
+                hideError('regPassword');
+            }
+
+            if (password !== confirmPassword) {
+                showError('confirmPassword', 'Passwords do not match');
+                isValid = false;
+            } else {
+                hideError('confirmPassword');
+            }
+
+            if (isValid) {
+                // Handle successful registration
+                alert('Registration successful!');
+                switchForm();
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!username) {
+                showError('loginUsername', 'Please enter your username');
+                isValid = false;
+            } else {
+                hideError('loginUsername');
+            }
+
+            if (!password) {
+                showError('loginPassword', 'Please enter your password');
+                isValid = false;
+            } else {
+                hideError('loginPassword');
+            }
+
+            if (isValid) {
+                // Handle successful login
+                alert('Login successful!');
+            }
+        });
+    </script>
+</body>
+</html>
