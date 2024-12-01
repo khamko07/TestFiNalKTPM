@@ -361,7 +361,12 @@
             }
 
             if (isValid) {
-                // Handle successful registration
+                // Lưu thông tin đăng ký vào localStorage
+                const user = {
+                    username: username,
+                    password: password
+                };
+                localStorage.setItem('user', JSON.stringify(user));
                 alert('Registration successful!');
                 switchForm();
             }
@@ -389,8 +394,14 @@
             }
 
             if (isValid) {
-                // Handle successful login
-                window.location.href = 'HomePage.html';
+                // Kiểm tra thông tin đăng nhập
+                const user = JSON.parse(localStorage.getItem('user'));
+                if (user && user.username === username && user.password === password) {
+                    // Handle successful login
+                    window.location.href = 'HomePage.html';
+                } else {
+                    showError('loginPassword', 'Invalid username or password');
+                }
             }
         });
     </script>
