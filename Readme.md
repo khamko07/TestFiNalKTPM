@@ -1,4 +1,4 @@
-# Dự án Kiểm thử tự động với Selenium
+# Dự án Kiểm thử tự động với Selenium ( Script kiểm thử là trong folder BanTest01 )
 
 ## Thông tin nhóm và phân công công việc
 Nhóm gồm 6 thành viên:
