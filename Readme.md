@@ -2,12 +2,14 @@
 
 ## Thông tin nhóm và phân công công việc
 Nhóm gồm 6 thành viên:
-1. Nguyễn Thúy Hằng - Nhóm trưởng, Viết script kiểm thử, kiểm tra script
-2. Nguyễn Trung Kiên - Viết script kiểm thử, kiểm tra và chỉnh sửa script
-3. Xaiyasith Khamko - Viết script kiểm thử, chỉnh sửa script, tạo trang web đăng ký và đăng nhập để kiểm thử
-4. Bạch Gia Huy -Viết script kiểm thử, tạo trang web đăng ký và đăng nhập để kiểm thử
-5. Triệu Thị Hồng Thương - Viết script kiểm thử, tạo trang web đăng ký và đăng nhập để kiểm thử
-6. Keobounthone Khampasong - Viết script kiểm thử, tạo trang web đăng ký và đăng nhập để kiểm thử
+1. **Nguyễn Thúy Hằng** - Nhóm trưởng, Viết script kiểm thử, kiểm tra script
+2. **Nguyễn Trung Kiên** - Viết script kiểm thử, kiểm tra và chỉnh sửa script
+3. **Xaiyasith Khamko** - Viết script kiểm thử, chỉnh sửa script, tạo trang web đăng ký và đăng nhập để kiểm thử
+4. **Bạch Gia Huy** -Viết script kiểm thử, tạo trang web đăng ký và đăng nhập để kiểm thử
+5. **Triệu Thị Hồng Thương** - Viết script kiểm thử, tạo trang web đăng ký và đăng nhập để kiểm thử
+6. **Keobounthone Khampasong** - Viết script kiểm thử, tạo trang web đăng ký và đăng nhập để kiểm thử
+
+
 
 ## Mô tả dự án
 - Dự án thực hiện kiểm thử tự động cho chức năng đăng ký và đăng nhập
