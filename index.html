@@ -199,7 +199,7 @@
                     <div class="password-strength">
                         <div class="strength-meter" id="strengthMeter"></div>
                     </div>
-                    <div class="error-message" id="regPasswordError">Password must be at least 8 characters with uppercase, lowercase, and special characters</div>
+                    <div class="error-message" id="regPasswordError">Password must be at least 8 characters with uppercase, lowercase, number, and special characters</div>
                 </div>
                 <div class="input-group">
                     <input type="password" placeholder="Confirm Password" id="confirmPassword" required>
@@ -262,22 +262,24 @@
             const hasUpperCase = /[A-Z]/.test(password);
             const hasLowerCase = /[a-z]/.test(password);
             const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+            const hasNumber = /[0-9]/.test(password);
             const hasMinLength = password.length >= 8;
 
             let strength = 0;
-            if (hasUpperCase) strength += 25;
-            if (hasLowerCase) strength += 25;
-            if (hasSpecialChar) strength += 25;
-            if (hasMinLength) strength += 25;
+            if (hasUpperCase) strength += 20;
+            if (hasLowerCase) strength += 20;
+            if (hasSpecialChar) strength += 20;
+            if (hasNumber) strength += 20;
+            if (hasMinLength) strength += 20;
 
             const strengthMeter = document.getElementById('strengthMeter');
             strengthMeter.style.width = `${strength}%`;
             
-            if (strength <= 25) {
+            if (strength <= 40) {
                 strengthMeter.style.backgroundColor = '#ef4444';
-            } else if (strength <= 50) {
+            } else if (strength <= 60) {
                 strengthMeter.style.backgroundColor = '#f59e0b';
-            } else if (strength <= 75) {
+            } else if (strength <= 80) {
                 strengthMeter.style.backgroundColor = '#10b981';
             } else {
                 strengthMeter.style.backgroundColor = '#059669';
@@ -303,6 +305,10 @@
             errorElement.style.display = 'none';
         }
 
+        function validateName(name) {
+            return /^[a-zA-Z]+$/.test(name);
+        }
+
         document.getElementById('regPassword').addEventListener('input', function(e) {
             validatePassword(e.target.value);
         });
@@ -318,15 +324,15 @@
             const password = document.getElementById('regPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            if (!firstName) {
-                showError('firstName', 'Please enter your first name');
+            if (!firstName || !validateName(firstName)) {
+                showError('firstName', 'First name can only contain letters');
                 isValid = false;
             } else {
                 hideError('firstName');
             }
 
-            if (!lastName) {
-                showError('lastName', 'Please enter your last name');
+            if (!lastName || !validateName(lastName)) {
+                showError('lastName', 'Last name can only contain letters');
                 isValid = false;
             } else {
                 hideError('lastName');
@@ -347,7 +353,7 @@
             }
 
             if (!validatePassword(password)) {
-                showError('regPassword', 'Password must be at least 8 characters with uppercase, lowercase, and special characters');
+                showError('regPassword', 'Password must be at least 8 characters with uppercase, lowercase, number, and special characters');
                 isValid = false;
             } else {
                 hideError('regPassword');
@@ -361,7 +367,6 @@
             }
 
             if (isValid) {
-                // Lưu thông tin đăng ký vào localStorage
                 const user = {
                     username: username,
                     password: password
@@ -394,10 +399,8 @@
             }
 
             if (isValid) {
-                // Kiểm tra thông tin đăng nhập
                 const user = JSON.parse(localStorage.getItem('user'));
                 if (user && user.username === username && user.password === password) {
-                    // Handle successful login
                     window.location.href = 'HomePage.html';
                 } else {
                     showError('loginPassword', 'Invalid username or password');
@@ -406,4 +409,5 @@
         });
     </script>
 </body>
+
 </html>
