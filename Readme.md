@@ -1,54 +1,54 @@
-# Authentication System
+# Dự án Kiểm thử tự động với Selenium ( Script kiểm thử là trong folder BanTest01 )
 
-This project is a simple authentication system that includes user registration and login functionality. It is built using HTML, CSS, and JavaScript.
+## Thông tin nhóm và phân công công việc
+Nhóm gồm 6 thành viên:
+1. **Nguyễn Thúy Hằng** - Nhóm trưởng, Viết script kiểm thử, kiểm tra script
+2. **Nguyễn Trung Kiên** - Viết script kiểm thử, kiểm tra và chỉnh sửa script
+3. **Xaiyasith Khamko** - Viết script kiểm thử, chỉnh sửa script, tạo trang web đăng ký và đăng nhập để kiểm thử
+4. **Bạch Gia Huy** -Viết script kiểm thử, tạo trang web đăng ký và đăng nhập để kiểm thử
+5. **Triệu Thị Hồng Thương** - Viết script kiểm thử, tạo trang web đăng ký và đăng nhập để kiểm thử
+6. **Keobounthone Khampasong** - Viết script kiểm thử, tạo trang web đăng ký và đăng nhập để kiểm thử
 
-## Features
 
-- User Registration
-  - First Name
-  - Last Name
-  - Username
-  - Email
-  - Password
-  - Confirm Password
-- User Login
-- Password Strength Indicator
-- Password Visibility Toggle
-- Form Validation
-- Error Messages
-- Local Storage for User Data
 
-## File Structure
+## Mô tả dự án
+- Dự án thực hiện kiểm thử tự động cho chức năng đăng ký và đăng nhập
+- Sử dụng Selenium WebDriver để tự động hóa quá trình kiểm thử
+- Dữ liệu test được quản lý trong file CSV
+- Framework sử dụng: JUnit với Parameterized Tests
 
-- `index.html`: Contains the registration and login forms along with the necessary JavaScript for form validation and user authentication.
-- `HomePage.html`: The home page that users are redirected to after a successful login.
+## Cấu trúc dự án
+- `src/main/java/AutomatedTest.java`: Class chính thực hiện kiểm thử
+- `src/main/resources/testdata.csv`: File dữ liệu test
+- `pom.xml`: File cấu hình Maven và dependencies
 
-## Usage
+## Các test case
+1. Đăng ký thành công và đăng nhập
+2. Đăng ký thất bại do mật khẩu xác nhận không khớp
+3. Đăng ký thất bại do email không hợp lệ
+4. Đăng ký thất bại do mật khẩu quá ngắn
 
-1. Open `index.html` in your web browser.
-2. Register a new user by filling out the registration form.
-3. Login with the registered username and password.
-4. Upon successful login, you will be redirected to `HomePage.html`.
+## Hướng dẫn chạy test
+1. Clone repository
+2. Mở project bằng IDE (IntelliJ IDEA hoặc Eclipse)
+3. Cài đặt Chrome WebDriver
+4. Chạy lệnh: `mvn test`
 
-## Scripts
+## Công nghệ sử dụng
+- Java
+- Selenium WebDriver
+- JUnit 4
+- Apache Commons CSV
+- Maven
 
-- `togglePassword(inputId)`: Toggles the visibility of the password input field.
-- `validatePassword(password)`: Validates the strength of the password.
-- `showError(inputId, message)`: Displays an error message for the specified input field.
-- `hideError(inputId)`: Hides the error message for the specified input field.
-- `switchForm()`: Switches between the login and registration forms.
+## Demo web để kiểm thử
+- Let's go: https://khamko07.github.io/TestFiNalKTPM/ 
 
-## Styles
+## Thanks
+_"Chúc cô một năm mới sắp tới thật nhiều sức khỏe, niềm vui và thành công trong mọi công việc. Cảm ơn cô đã luôn tận tâm dạy dỗ và truyền cảm hứng cho chúng em!"_
 
-The project uses custom CSS for styling the forms and other elements. The styles are included within the `<style>` tags in the `index.html` and `HomePage.html` files.
+_Trân trọng_
 
-## Dependencies
+_Nhóm 9_
 
-- [Font Awesome](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css) for the password visibility toggle icons.
-
-## License
-
-This project is licensed under the MIT License.
-
-## Demo live
-Let's go: https://khamko07.github.io/TestFiNalKTPM/
+![Thanks](meme.jpg)
