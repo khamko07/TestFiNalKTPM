@@ -1,5 +1,9 @@
 firstName,lastName,regUsername,email,regPassword,confirmPassword,loginUsername,loginPassword,expectedResult
 Minh,Anh,minhanh123,minhanh1153139@gmail.com,Hang123.,Hang123.,minhanh123,Hang123.,pass
-Minh,Anh,minhanh123,minhanh1153139@gmail.com,Hang123.,WrongPass.,minhanh123,Hang123.,fail
-Minh,Anh,existinguser,invalidemail,Hang123.,Hang123.,existinguser,Hang123.,fail
 Minh,Anh,minhanh123,minhanh1153139@gmail.com,short,short,minhanh123,short,fail
+,Anh,minhanh123,minhanh1153139@gmail.com,Hang123.,Hang123.,minhanh123,Hang123.,fail
+Minh,,minhanh123,minhanh1153139@gmail.com,Hang123.,Hang123.,minhanh123,Hang123.,fail
+Minh,Anh,,minhanh1153139@gmail.com,Hang123.,Hang123.,,Hang123.,fail
+Minh,Anh,minhanh123,,Hang123.,Hang123.,minhanh123,Hang123.,fail
+Minh,Anh,minhanh123,minhanh1153139@gmail.com,,Hang123.,minhanh123,Hang123.,fail
+Minh,Anh,minhanh123,minhanh1153139@gmail.com,Hang123.,,minhanh123,Hang123.,fail
