@@ -23,10 +23,25 @@ Nhóm gồm 6 thành viên:
 - `pom.xml`: File cấu hình Maven và dependencies
 
 ## Các test case
-1. Đăng ký thành công và đăng nhập
-2. Đăng ký thất bại do mật khẩu xác nhận không khớp
-3. Đăng ký thất bại do email không hợp lệ
-4. Đăng ký thất bại do mật khẩu quá ngắn
+## Các test case
+1. Test case với các trường dữ liệu trống
+2. Test case đăng ký và đăng nhập thành công với dữ liệu hợp lệ
+3. Test case thiếu First Name
+4. Test case thiếu Last Name 
+5. Test case thiếu Username
+6. Test case thiếu Email
+7. Test case thiếu Password
+8. Test case thiếu Confirm Password
+9. Test case mật khẩu quá ngắn
+10. Test case mật khẩu thiếu chữ hoa
+11. Test case mật khẩu thiếu ký tự đặc biệt
+12. Test case mật khẩu thiếu số
+13. Test case mật khẩu xác nhận không khớp
+14. Test case First Name chứa ký tự đặc biệt
+15. Test case Username ngắn
+16. Test case Username chỉ chứa số
+17. Test case Email sai định dạng (thiếu @)
+18. Test case Email sai định dạng (thiếu domain)
 
 ## Hướng dẫn chạy test
 1. Clone repository
