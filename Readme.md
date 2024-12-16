@@ -23,7 +23,6 @@ Nhóm gồm 6 thành viên:
 - `pom.xml`: File cấu hình Maven và dependencies
 
 ## Các test case
-## Các test case
 1. Test case với các trường dữ liệu trống
 2. Test case đăng ký và đăng nhập thành công với dữ liệu hợp lệ
 3. Test case thiếu First Name
